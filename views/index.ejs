@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Recipe App</title>
+    <link rel="stylesheet" href="/stylesheet/index.css">
+</head>
+<body>
+    <%- include('partials/navbar.ejs') %>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <h4>Filters</h4>
+                    <hr>
+
+                    <!-- Serving Size Dropdown -->
+                    <div class="form-group">
+                        <label for="servingSize">Serving Size</label>
+                        <select class="form-control" id="servingSize">
+                            <option value="">Select serving size</option>
+                            <option value="1-2">1-2 servings</option>
+                            <option value="3-4">3-4 servings</option>
+                            <option value="5-6">5-6 servings</option>
+                            <option value="7+">7+ servings</option>
+                        </select>
+                    </div>
+
+                    <!-- Cuisine Options -->
+                    <h5>Cuisine</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="italian" id="cuisineItalian">
+                        <label class="form-check-label" for="cuisineItalian">
+                            Italian
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="chinese" id="cuisineChinese">
+                        <label class="form-check-label" for="cuisineChinese">
+                            Chinese
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="mexican" id="cuisineMexican">
+                        <label class="form-check-label" for="cuisineMexican">
+                            Mexican
+                        </label>
+                    </div>
+                    <!-- Add more cuisine options as needed -->
+
+                    <!-- Difficulty Level -->
+                    <h5>Difficulty Level</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="easy" id="difficultyEasy">
+                        <label class="form-check-label" for="difficultyEasy">
+                            Easy
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="medium" id="difficultyMedium">
+                        <label class="form-check-label" for="difficultyMedium">
+                            Medium
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="hard" id="difficultyHard">
+                        <label class="form-check-label" for="difficultyHard">
+                            Hard
+                        </label>
+                    </div>
+
+                    <!-- Total Estimated Time Dropdown -->
+                    <div class="form-group">
+                        <label for="estimatedTime">Total Estimated Time</label>
+                        <select class="form-control" id="estimatedTime">
+                            <option value="">Select estimated time</option>
+                            <option value="under30">Under 30 minutes</option>
+                            <option value="30-60">30-60 minutes</option>
+                            <option value="1-2hours">1-2 hours</option>
+                            <option value="2+hours">2+ hours</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-9 main-content">
+                <!-- Main content area -->
+                <div class="container mt-3">
+                    <h2>Recipe Book</h2>
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        <% for (let i = 0; i < products.length; i++) { %>
+                            <div class="col">
+                                <div class="product-card">
+                                    <img src="<%= products[i].imageUrl %>" class="product-image" alt="<%= products[i].name %> Image">
+                                    <h5><a href="/products/<%= products[i].id %>"><%= products[i].name %></a></h5>
+                                    <p>Product ID: <%= products[i].id %></p>
+                                    <p>
+                                        <% if (products[i].qty < 50) { %>
+                                            <span style="color: red;">Quantity: <%= products[i].qty %></span>
+                                        <% } else if (products[i].qty >= 100) { %>
+                                            <span style="color: green;">Quantity: <%= products[i].qty %></span>
+                                        <% } else if (50 <= products[i].qty && products[i].qty < 100) { %>
+                                            <span style="color: orange;">Quantity: <%= products[i].qty %></span>
+                                        <% } else { %>
+                                            <span>Quantity: <%= products[i].qty %></span>
+                                        <% } %>
+                                    </p>
+                                    <p>Price: $<%= products[i].price %></p>
+                                    <div class="d-flex justify-content-between">
+                                        <a href="/products/<%= products[i].id %>/update" class="btn btn-primary">Edit</a>
+                                        <a href="/products/<%= products[i].id %>/preview" class="btn btn-secondary">Preview</a>
+                                        <a href="/products/<%= products[i].id %>/delete" class="btn btn-danger">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

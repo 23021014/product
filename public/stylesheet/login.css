@@ -1,0 +1,64 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    background-image: url("images/bgphoto.jpg");
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-position: center; 
+}
+
+.login-container {
+    background-color: white;
+    padding: 50px;
+    border-radius: 20px;
+    width: 400px;
+}
+
+.login-container h1 {
+    margin-bottom: 20px;
+}
+
+.login-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 9px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: pink;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    font-size: 16px;
+    margin:10px;
+}
+
+.login-container button:hover {
+    background-color: #f2797e;
+}
+
+.logo{
+    display:flex;
+    justify-content: center;
+    border-radius:20%;
+}
+
+.logo img {
+    max-width: 100%; /* Ensure the image doesn't overflow */
+    height: auto;    /* Maintain aspect ratio */
+    object-fit: contain; /* Ensure the image fits inside the div without being stretched */
+    max-height: 100px; /* Optional: to constrain the image height */
+}

@@ -1,0 +1,17 @@
+.navbar-custom {
+    background-color: pink;
+}
+
+.navbar-custom .search-form .form-control {
+    min-width: 900px; /* Adjust the width as needed */
+}
+
+.navbar-custom .search-form .btn-outline-secondary {
+    min-width: 120px;
+}
+
+.navbar-custom .search-form .btn-outline-secondary:hover {
+    background-color: #f2797e;
+    border-color: #f2797e;
+    color: white; 
+}
