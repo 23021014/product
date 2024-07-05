@@ -26,3 +26,29 @@
     margin-left: 26%; /* Adjust based on sidebar width */
     padding: 15px;
 }
+
+.row{
+    margin:50px;
+}
+
+/* CSS to style the "Product not found" message */
+.not-found-message {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #f8f9fa; /* Light gray background */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Optional: Add a subtle shadow */
+}
+
+.not-found-message h4 {
+    color: #dc3545; /* Red color for emphasis */
+    margin-bottom: 10px;
+}
+
+.not-found-message p {
+    color: #6c757d; /* Gray color for description text */
+}
+.space{
+    margin-top:30px;
+}
+

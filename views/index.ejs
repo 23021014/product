@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="/stylesheet/index.css">
 </head>
 <body>
-    <%- include('partials/navbar.ejs') %>
+
+    <%- include ('partials/navbar.ejs') %>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
@@ -95,25 +96,25 @@
                         <% for (let i = 0; i < products.length; i++) { %>
                             <div class="col">
                                 <div class="product-card">
-                                    <img src="<%= products[i].imageUrl %>" class="product-image" alt="<%= products[i].name %> Image">
-                                    <h5><a href="/products/<%= products[i].id %>"><%= products[i].name %></a></h5>
-                                    <p>Product ID: <%= products[i].id %></p>
+                                    <img src="data:image/jpeg;base64,<%= products[i].recipeImage.toString('base64') %>" class="product-image" alt="<%= products[i].recipeName %> Image">
+                                    <!-- <h5><a href="/products/<%= products[i].recipeID %>"><%= products[i].recipeName %></a></h5> -->
+                                    <p>Recipe: <%= products[i].recipeName %></p>
                                     <p>
-                                        <% if (products[i].qty < 50) { %>
-                                            <span style="color: red;">Quantity: <%= products[i].qty %></span>
+                                        <% if (products[i].totalTimeEstimated < 50) { %>
+                                            <span style="color: red;">Total Estimated Time: <%= products[i].totalTimeEstimated %></span>
                                         <% } else if (products[i].qty >= 100) { %>
-                                            <span style="color: green;">Quantity: <%= products[i].qty %></span>
+                                            <span style="color: green;">Total Estimated Time:<%= products[i].totalTimeEstimated %></span>
                                         <% } else if (50 <= products[i].qty && products[i].qty < 100) { %>
-                                            <span style="color: orange;">Quantity: <%= products[i].qty %></span>
+                                            <span style="color: orange;">Total Estimated Time: <%= products[i].totalTimeEstimated %></span>
                                         <% } else { %>
-                                            <span>Quantity: <%= products[i].qty %></span>
+                                            <span>Total Estimated Time: <%= products[i].totalTimeEstimated %></span>
                                         <% } %>
                                     </p>
-                                    <p>Price: $<%= products[i].price %></p>
+                                    <p>Serving size: <%= products[i].servingSize %></p>
                                     <div class="d-flex justify-content-between">
-                                        <a href="/products/<%= products[i].id %>/update" class="btn btn-primary">Edit</a>
-                                        <a href="/products/<%= products[i].id %>/preview" class="btn btn-secondary">Preview</a>
-                                        <a href="/products/<%= products[i].id %>/delete" class="btn btn-danger">Delete</a>
+                                        <a href="/products/<%= products[i].recipeID %>/update" class="btn btn-primary">Edit</a>
+                                        <a href="/products/<%= products[i].recipeID %>" class="btn btn-secondary">Preview</a>
+                                        <a href="/products/<%= products[i].recipeID %>/delete" class="btn btn-danger">Delete</a>
                                     </div>
                                 </div>
                             </div>

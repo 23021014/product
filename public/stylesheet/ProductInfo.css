@@ -1,0 +1,97 @@
+/* Container styles */
+.space{
+    margin:70px;
+}
+
+
+/* Image container styles */
+.image-container {
+    text-align: center;
+    max-width: 600px; /* Adjust max-width as per your design */
+    margin: auto; /* Center the image */
+}
+
+/* Image styles */
+.recipe-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Container styles */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading styles */
+#specialH {
+    color: #333;
+    text-align: center;
+    font-size: 42px;
+    /* font-weight: bold; */
+    text-transform: capitalize;
+    font-family: Georgia, serif;
+    text-transform: uppercase;
+}
+
+/* Section heading styles */
+.section-heading {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Label styles */
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-family: Georgia, serif;
+    font-size:18px;
+}
+
+/* Content styles */
+.content {
+    margin-bottom: 20px;
+}
+
+/* List styles */
+ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+/* Link styles */
+.back-link {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    
+    
+}
+
+.back-link:hover {
+    text-decoration: none;
+    color:black;
+}
+
+.coolBackground:hover{
+    background-color: #f2797e;
+}
+.coolBackground{
+    margin-left: 500px;
+    margin-right: 500px;
+    border-radius: 5%;
+    padding-top:5px;
+    padding-bottom:5px;
+    background-color: pink;
+    border: solid black 1px;
+}

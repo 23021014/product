@@ -5,7 +5,7 @@ body {
     align-items: center;
     height: 100vh;
     background-color: #f0f0f0;
-    background-image: url("images/bgphoto.jpg");
+    background-image: url("/images/bgphoto.jpg");
     background-repeat: no-repeat;
     background-size: cover; 
     background-position: center; 
@@ -46,7 +46,11 @@ body {
     margin:10px;
 }
 
-.login-container button:hover {
+/* .login-container button:hover {
+    background-color: #f2797e;
+} */
+
+.login-container button.valid {
     background-color: #f2797e;
 }
 

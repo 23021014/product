@@ -6,31 +6,92 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <title>Recipe App</title>
+    <link rel="stylesheet" href="/stylesheet/updateProduct.css">
 </head>
 <body>
     <%- include ('partials/navbar.ejs') %>
+    <div class="space"></div>
     <div class="container mt-3">
         <h2>Update Product</h2>
 
+
+
         <!-- Form to update product info -->
-        <form action="/products/<%= updateProduct.id %>/update" method="POST">
-            <div class="mb-3 mt-3">
-                <label for="productName">Product Name:</label>
-                <!-- Display original name of product in the value property -->
-                <input type="text" class="form-control" id="productName" value="<%= updateProduct.name %>" placeholder="Enter product name" name="name" required>
+        <form action="/products/<%= updateRecipe.recipeID %>/update" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="image">Upload image:</label>
+                <!-- <input type="text" class="form-control" id="image" placeholder="Enter image URL" name="imageUrl"> -->
+                <input type="file" class="form-control-file" id="image" name="image">
+                <img src="data:image/jpeg;base64,<%= updateRecipe.recipeImage.toString('base64') %>" alt="Current Image" style="max-width: 100px; max-height: 100px;">
             </div>
-            <div class="mb-3 mt-3">
-                <label for="quantity">Quantity:</label>
-                <!-- Display original quantity of product in the value property -->
-                <input type="number" class="form-control" id="quantity" value="<%= updateProduct.qty %>" placeholder="Enter quantity" name="qty" required>
+            <div class="mb-3">
+                <label for="name">Product Name:</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter product name" name="name" value="<%= updateRecipe.recipeName %>">
+
             </div>
-            <div class="mb-3 mt-3">
-                <label for="price">Price:</label>
-                <!-- Display original price of product in the value property -->
-                <input type="number" step="0.01" class="form-control" id="price" value="<%= updateProduct.price %>" placeholder="Enter price" name="price" required>
+            <div class="mb-3">
+                <label for="totalTime">Total Time Estimated (minutes):</label>
+                <input type="number" class="form-control" id="totalTime" placeholder="Enter total time" name="totalTime" value="<%= updateRecipe.totalTimeEstimated %>">
+            </div>
+            <div class="mb-3">
+                <label for="servingSize">Serving Size:</label>
+                <select class="form-select" id="servingSize" name="servingSize">
+                    <option selected disabled>Select serving size</option>
+                    <option value="1" <%= updateRecipe.servingSize == 1 ? 'selected' : '' %>>1 Serving</option>
+                    <option value="2" <%= updateRecipe.servingSize == 2 ? 'selected' : '' %>>2 Servings</option>
+                    <option value="3" <%= updateRecipe.servingSize == 3 ? 'selected' : '' %>>3 Servings</option>
+                    <option value="4" <%= updateRecipe.servingSize == 4 ? 'selected' : '' %>>4 Servings</option>
+                    <option value="5" <%= updateRecipe.servingSize == 5 ? 'selected' : '' %>>5 Servings</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="ingredients">Ingredients:</label>
+                <ul class="list-group" id="ingredients">
+                    <% updateRecipe.ingredients.split(', ').forEach(function(ingredient) { %>
+                    <li class="list-group-item">
+                        <input type="text" class="form-control" placeholder="Enter ingredient" name="ingredients[]" value="<%= ingredient %>">
+                    </li>
+                    <% }); %>
+                    <!-- You can add more list items dynamically with JavaScript -->
+                </ul>
+                <button type="button" class="btn btn-secondary mt-2" onclick="addIngredient()">Add Ingredient</button>
+            </div>
+            <div class="mb-3">
+                <label for="preparationSteps">Preparation Steps:</label>
+                <ul class="list-group" id="preparationSteps">
+                    <% updateRecipe.preparationSteps.split(', ').forEach(function(step,index) { %>
+                    <li class="list-group-item d-flex align-items-center">
+                        <span class="me-2"><%= index + 1 %>.</span>
+                        <input type="text" class="form-control" placeholder="Enter preparation step" name="preparationSteps[]" value="<%= step %>">
+                    </li>
+                    <% }); %>
+                    <!-- You can add more list items dynamically with JavaScript -->
+                </ul>
+                <button type="button" class="btn btn-secondary mt-2" onclick="addPreparationStep()">Add Preparation Step</button>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
+    <script>
+        function addIngredient() {
+            const ingredientsList = document.getElementById('ingredients');
+            const li = document.createElement('li');
+            li.className = 'list-group-item';
+            li.innerHTML = '<input type="text" class="form-control" placeholder="Enter ingredient" name="ingredients[]">';
+            ingredientsList.appendChild(li);
+        }
+
+        function addPreparationStep() {
+            const preparationStepsList = document.getElementById('preparationSteps');
+            const stepCount = preparationStepsList.children.length;
+            const newStepNumber = stepCount + 1;
+            const li = document.createElement('li');
+            
+            li.className = 'list-group-item d-flex align-items-center';
+            
+            li.innerHTML = `<span class="me-2">${newStepNumber}.</span> <input type="text" class="form-control" placeholder="Enter preparation step" name="preparationSteps[]">`;
+            preparationStepsList.appendChild(li);
+        }
+    </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 }
 
 .navbar-custom .search-form .form-control {
-    min-width: 900px; /* Adjust the width as needed */
+    min-width: 700px; /* Adjust the width as needed */
 }
 
 .navbar-custom .search-form .btn-outline-secondary {
@@ -15,3 +15,4 @@
     border-color: #f2797e;
     color: white; 
 }
+

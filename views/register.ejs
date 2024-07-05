@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe App</title>
+    <link rel="stylesheet" href="/stylesheet/login.css">
+
+    <!-- <script>
+        // Function to display alert on incorrect login
+        function showInvalidLoginAlert() {
+            alert("Invalid username or password. Please try again.");
+        }
+    </script> -->
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <img src="/images/icon2.jpg" alt="logo">
+        </div>
+        <h1>Register</h1>
+
+        <form action="/registerAccount" method="POST">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" id = "registerButton">Register</button>
+        </form>
+        <p style="display: inline;">Already have an account? </p>
+        <a href="/" style="display: inline;">Login now!</a>
+
+
+        <% if (typeof error !=='undefined' ) { %>
+            <p class="error-message">
+                <%= error %>
+            </p>
+            <% } %>
+    </div>
+
+    <script>
+        // Get references to the form and input fields
+        
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const registerButton = document.getElementById('registerButton');
+
+        // Function to check if both fields have content
+        function checkFormValidity() {
+            const usernameValue = usernameInput.value.trim();
+            const passwordValue = passwordInput.value.trim();
+            
+            // Enable or disable button based on input values
+            if (usernameValue.length > 0 && passwordValue.length > 0) {
+                registerButton.classList.add('valid');
+            } else {
+                registerButton.classList.remove('valid');
+            }
+        }
+
+        // Event listeners for input changes
+        usernameInput.addEventListener('input', checkFormValidity);
+        passwordInput.addEventListener('input', checkFormValidity);
+    </script>
+</body>
+
+</html>
