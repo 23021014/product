@@ -12,18 +12,12 @@ router.get('/', (req, res) => {
     }
 });
 
-
-//previous implementation of login
-// router.post('/login', (req, res) => {
-//     const { username, password } = req.body;
-//     console.log(`Username: ${username}, Password: ${password}`);
-//     res.redirect('/home');
-// });
-
+//Route to handle user login submission
 router.post('/loginAccount', (req, res) => {
     const { username, password } = req.body;
     //take the username and password to check if its valid
     const sql = 'SELECT * FROM account WHERE username = ? AND password = ?';
+    //check if the user and pass is valid
     connection.query(sql, [username, password], (err, results) => {
         if (err) {
             console.error('Error executing query:', err);
@@ -54,8 +48,7 @@ router.get('/register', (req, res) => {
 
 //register service (creating a new account)
 router.post('/registerAccount', (req, res) => {
-    //to save this into the database
-    //lets get the users username and password ifrst
+    //to save this into the databasa = get the users username and password
     const { username, password } = req.body;
     //query for sql database
     const sql = 'INSERT INTO account (username, password) VALUES (?, ?)';
@@ -76,13 +69,10 @@ router.post('/registerAccount', (req, res) => {
             req.session.loggedIn = true; 
             res.redirect('/home');
         }
-    });
-    
-
-    
+    });    
 });
 
-
+//logout
 router.get('/logout',(req,res)=>{
     req.session.destroy( err =>{
         if(err){
@@ -92,4 +82,5 @@ router.get('/logout',(req,res)=>{
     });
 })
 
+//export to the router so that its importable in appjs
 module.exports = router;

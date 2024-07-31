@@ -6,31 +6,15 @@ const { isAuthenticated } = require('../models/authMiddleware');
 const connection = require('../models/db');
 const fs = require('fs');
 
-
-// In-memory data for products
-// let products = [
-//     { id: 1, name: 'Apples', qty: 100, price: 1.5, imageUrl: "images/kucing.jpg", totalTime: 10, servingSize: 10, ingredients: ['Apples', 'Knife'], preparationSteps: ['Wash the apples', 'Slice the apples'] },
-//     { id: 2, name: 'Bananas', qty: 75, price: 0.8, imageUrl: "images/banana.jpg" },
-//     { id: 3, name: 'Milk', qty: 50, price: 3.5, imageUrl: "images/milk.jpg" },
-//     { id: 4, name: 'Bread', qty: 80, price: 1.5, imageUrl: "images/bread.jpg" }
-// ];
-
-
 // Multer storage configuration
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-// Routes for CRUD operations
-// Route to retrieve and display all products
-// router.get('/products', (req, res) => {
-//     res.render('index', { products });
-// });
-
-router.get('/products', (req, res) => {
+// Route to get all recipe made by the user when logged in
+router.get('/products', isAuthenticated, (req, res) => {
     // SQL query to select all recipes
     const username = req.session.username;
     const sql = 'SELECT * FROM recipes WHERE username = ?';
-
     // Execute the query
     connection.query(sql, [username], (err, results) => {
         if (err) {
@@ -45,24 +29,18 @@ router.get('/products', (req, res) => {
 });
 
 
-
-// Rendering the add product page
+// Rendering the add recipe page
 router.get('/addProductForm', isAuthenticated, (req, res) => {
     res.render('addProduct');
 });
 
 
-// Route to handle form submission
+// Route to handle form recipe submission
 router.post('/search', isAuthenticated, (req, res) => {
     const searchTerm = req.body.searchTerm;
-    // Process the search term here, e.g., query a database or perform some action
-    // res.send(`You searched for: ${searchTerm}`);
-    //the like query is what makes it flexible
     const sql = "SELECT * FROM recipes where recipeName LIKE ?";
-
     //advance search
     const searchQuery = `%${searchTerm}%`;
-
     connection.query(sql, [searchQuery], (err, results) => {
         if (err) {
             console.error('Error fetching product:', err);
@@ -80,8 +58,6 @@ router.post('/search', isAuthenticated, (req, res) => {
     });
 });
 
-
-
 // Route to get a specific product by ID
 router.get('/products/:id', isAuthenticated,  (req, res) => {
     const recipeID = parseInt(req.params.id);
@@ -90,11 +66,10 @@ router.get('/products/:id', isAuthenticated,  (req, res) => {
     connection.query(sql, [recipeID], (err, results) => {
         if (err) {
             console.error('Error fetching product:', err);
-            // Handle error, maybe redirect to an error page
+            // Handle error, maybe redirect to an error page ?
             res.redirect('/error');
             return;
         }
-
         if (results.length > 0) {
             const updateRecipe = results[0]; // Assuming recipeID is unique, take the first result
             res.render('ProductInfo', { updateRecipe });
@@ -104,28 +79,14 @@ router.get('/products/:id', isAuthenticated,  (req, res) => {
     });
 });
 
-// Adding the new product into the database
-// router.post('/addProduct', isAuthenticated, (req, res) => {
-//     const { name, qty, price } = req.body;
-//     const id = products.length > 0 ? products[products.length - 1].id + 1 : 1;
-//     const newProduct = { id, name, qty: parseInt(qty), price: parseFloat(price) };
-//     products.push(newProduct);
-//     res.redirect('/products');
-
-
-// });
-
-// Adding the new product into the database
-// Route for handling form submission
+// Route for adding new recipe to db
 router.post('/addProduct', upload.single('image'),(req, res) => {
     // Handle file upload using multer
     if (!req.file) {
         return res.status(400).send('No file uploaded.');
     }
-
     // Read the uploaded file into a Buffer
     const imgBuffer = req.file.buffer;
-
     // Extract other form data
     const { name, totalTime, servingSize, ingredients, preparationSteps } = req.body;
     const username = req.session.username;
@@ -148,12 +109,10 @@ router.post('/addProduct', upload.single('image'),(req, res) => {
 });
 
 
-// Update a product by ID - Just to make sure the id exist in the database to perform update
+// Update a product by ID - check if recipe exist and render update form
 router.get('/products/:id/update', isAuthenticated, (req, res) => {
     const recipeID = parseInt(req.params.id);
     const sql = `SELECT * FROM recipes WHERE recipeID = ?`;
-
-    
     connection.query(sql, [recipeID], (err, results) => {
         if (err) {
             console.error('Error fetching product:', err);
@@ -161,11 +120,10 @@ router.get('/products/:id/update', isAuthenticated, (req, res) => {
             res.redirect('/error');
             return;
         }
-
         if (results.length > 0) {
-            const updateRecipe = results[0]; // Assuming recipeID is unique, take the first result
+            const updateRecipe1 = results[0]; // Assuming recipeID is unique, take the first result
             
-            res.render('updateProduct', { updateRecipe });
+            res.render('updateProduct', { updateRecipe1 });
         } else {
             res.status(404).send('Product not found');
         }
@@ -201,6 +159,7 @@ router.post('/products/:id/update', isAuthenticated, upload.single('image'), asy
             image = await getExistingImage(recipeID);
         }
 
+        // create an object to update recipe fields with gathered data
         const updateFields = {
             recipeName: name || null,
             totalTimeEstimated: totalTime || null,
@@ -233,11 +192,7 @@ router.post('/products/:id/update', isAuthenticated, upload.single('image'), asy
 // Delete a product by ID
 router.get('/products/:id/delete', isAuthenticated, (req, res) => {
     const recipeID = parseInt(req.params.id);
-    // products = products.filter(product => product.id !== recipeID);
-
-    // SQL DELETE query
     const sql = `DELETE FROM recipes WHERE recipeID = ?`;
-
 
     connection.query(sql, [recipeID], (err, result) => {
         if (err) {
@@ -251,7 +206,7 @@ router.get('/products/:id/delete', isAuthenticated, (req, res) => {
     });
 });
 
-
+// Render homepage with all recipes
 router.get('/home', isAuthenticated, (req,res) => {
     const sql = 'SELECT * FROM recipes';
     connection.query(sql, (err, results) => {
@@ -273,6 +228,6 @@ router.get('/home', isAuthenticated, (req,res) => {
 });
 
 
-
+//export to the router so that its importable in appjs
 module.exports = router;
 

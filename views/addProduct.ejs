@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,12 +9,16 @@
     <title>Recipe App</title>
     <link rel="stylesheet" href="/stylesheet/addProduct.css">
 </head>
+
 <body>
     <%- include ('partials/navbar.ejs') %>
     <div class="space"></div>
     <div class="container mt-3">
-        <h2>Add Recipe</h2>
-
+        <div class="box p-4">
+            <h1>Add Recipe</h1>
+            <p>Share your culinary creations! Use this page to add new recipes to your collection. 
+                Fill in the details, upload a photo, and inspire others with your delicious dishes.</p>
+        </div>
         <!-- Form for adding a new product -->
         <form action="/addProduct" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
@@ -46,7 +51,6 @@
                     <li class="list-group-item">
                         <input type="text" class="form-control" placeholder="Enter ingredient" name="ingredients[]">
                     </li>
-                    <!-- You can add more list items dynamically with JavaScript -->
                 </ul>
                 <button type="button" class="btn btn-secondary mt-2" onclick="addIngredient()">Add Ingredient</button>
             </div>
@@ -56,7 +60,6 @@
                     <li class="list-group-item">
                         <input type="text" class="form-control" placeholder="Enter preparation step" name="preparationSteps[]">
                     </li>
-                    <!-- You can add more list items dynamically with JavaScript -->
                 </ul>
                 <button type="button" class="btn btn-secondary mt-2" onclick="addPreparationStep()">Add Preparation Step</button>
             </div>
@@ -82,5 +85,6 @@
             preparationStepsList.appendChild(li);
         }
     </script>
+    
 </body>
 </html>

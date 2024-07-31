@@ -1,18 +1,17 @@
-.fakeimg {
-    height: 200px;
-    background: #aaa;
-}
-
 .recipe-box {
-    border: 1px solid #ddd;
-    padding: 15px;
-    text-align: center;
+    border: 1px solid #ccc;
+    padding: 10px;
     margin-bottom: 20px;
+    height: 100%;
+    display:flex;
+    flex-direction:column;
+    justify-content: space-between;
 }
 
 .recipe-box img {
     max-width: 100%;
-    height: auto;
+    height: 200px;
+    object-fit: contain;
 }
 
 .space{
@@ -23,11 +22,9 @@
     margin-right:170px;
 }
 
-
-
 .welcome-container {
     position: relative;
-    height: 250px; /* Adjust height as needed */
+    height: 280px; /* Adjust height as needed */
     background-image: url('/images/recipe_banner.jpg'); /* Replace with your image URL */
     background-size: cover;
     background-position: center;
@@ -39,12 +36,18 @@
 }
 
 .welcome-content {
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
-    padding: 20px;
+    background-color: rgba(255, 192, 203, 0.2); /* Semi-transparent pink overlay */
+    color: rgb(78, 76, 76);
+    padding: 60px;
     border-radius: 10px;
 }
 
 .divSpace{
     display:flex;
-    
+}
+
+.wrap-button {
+    display: flex;
+    justify-content:center;
+    gap: 10px; /* Optional: Adds space between buttons */
 }

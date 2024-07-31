@@ -3,17 +3,11 @@ const router = express.Router();
 const { isAuthenticated } = require('../models/authMiddleware');
 const connection = require('../models/db');
 
-
-// let products = [
-//     { id: 1, name: 'Apples', qty: 100, price: 1.5, imageUrl: "images/kucing.jpg", totalTime: 10, servingSize: 10, ingredients: ['Apples', 'Knife'], preparationSteps: ['Wash the apples', 'Slice the apples'] },
-    
-// ];
-
-
+//Add a recipe to the user's liked recipes 
 router.post('/addIntoLike', isAuthenticated, (req,res) =>{
     const { recipeID } = req.body;
     const username = req.session.username; 
-    console.log("test");
+    console.log("test"); 
     // Check if the user has already liked the recipe to avoid duplicate likes
     const checkLikeQuery = 'SELECT * FROM liked_recipes WHERE username = ? AND recipeID = ?';
     connection.query(checkLikeQuery, [username, recipeID], (err, checkResults) => {
@@ -25,7 +19,8 @@ router.post('/addIntoLike', isAuthenticated, (req,res) =>{
 
         if (checkResults.length > 0) {
             // User has already liked this recipe
-            res.status(400).send('Recipe already liked by the user');
+            // res.status(400).send('Recipe already liked by the user');
+            res.redirect('/home');
         } else {
             // Insert into liked_recipes table
             const insertLikeQuery = 'INSERT INTO liked_recipes (username, recipeID) VALUES (?, ?)';
@@ -36,15 +31,15 @@ router.post('/addIntoLike', isAuthenticated, (req,res) =>{
                     return;
                 }
                 console.log("Succesfully liked!")
-                // // Optionally, you can render a page or redirect to another route
-                // res.render('likes', { recipeID });
+                res.redirect('/home');
             });
         }
     });
     
 })
 
-router.post('/unlike', isAuthenticated, (req,res) =>{
+// Unlike a previously liked recipe
+router.post('/unlike', isAuthenticated, (req, res) => {
     const { recipeID } = req.body;
     const username = req.session.username;
 
@@ -53,49 +48,43 @@ router.post('/unlike', isAuthenticated, (req,res) =>{
     connection.query(checkLikeQuery, [username, recipeID], (err, checkResults) => {
         if (err) {
             console.error('Error checking like:', err);
-            res.status(500).send('Error checking like');
+            res.status(500).redirect('/error'); // Redirect to an error page
             return;
         }
 
         if (checkResults.length === 0) {
             // Recipe is not liked by the user
-            res.status(400).send('Recipe is not liked by the user');
+            res.status(400).redirect('/recipes'); // Redirect back to recipes page
         } else {
             // Delete from liked_recipes table
             const deleteLikeQuery = 'DELETE FROM liked_recipes WHERE username = ? AND recipeID = ?';
             connection.query(deleteLikeQuery, [username, recipeID], (err, deleteResult) => {
                 if (err) {
                     console.error('Error unliking recipe:', err);
-                    res.status(500).send('Error unliking recipe');
+                    res.status(500).redirect('/error'); // Redirect to an error page
                     return;
                 }
                 console.log('Successfully unliked recipe');
-                res.status(200).send('Recipe successfully unliked');
+                res.redirect('/likes'); // Redirect back to recipes page
             });
         }
     });
-    
-})
+});
 
+// Display all liked recipes for the logged-in user
 router.get('/likes', isAuthenticated, (req,res) =>{
     const username = req.session.username;
-
     const sql = 'SELECT * FROM liked_recipes WHERE username = ?';
-    //I want to display all the results, so results will only contain recipes that is liked by the username
 
     connection.query(sql, [username], (err, results) => {
         if (err) {
             console.error('Error fetching liked recipes:', err);
-            // Handle error, maybe redirect to an error page
             res.redirect('/error');
             return;
         }
 
         if (results.length > 0) {
-            // Optionally, you can reverse the results if needed
-            // results.reverse();
-
-            // Assuming you want to fetch details of liked recipes from the 'recipes' table
+            // Get details of liked recipes from the recipes table
             const recipeIDs = results.map(result => result.recipeID);
             const getRecipesQuery = 'SELECT * FROM recipes WHERE recipeID IN (?)';
             
@@ -117,4 +106,5 @@ router.get('/likes', isAuthenticated, (req,res) =>{
     });
 })
 
+//export to the router so that its importable in appjs
 module.exports = router;

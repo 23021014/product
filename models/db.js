@@ -1,10 +1,11 @@
 const mysql = require('mysql');
 
 const connection = mysql.createConnection({
-    host: 'localhost', // Your MySQL host (e.g., 'localhost')
-    user: 'root', // Your MySQL username
-    password: '', // Your MySQL password
-    database: 'recipe' // Your database name
+    host: 'sql.freedb.tech', // Your MySQL host (e.g., 'localhost')
+    user: 'freedb_recipedb', //  MySQL username
+    password: 'Bxc?$6zNFnn2FwR', //  MySQL password
+    database: 'freedb_recipedb', // database name
+    port: 3306
 });
 
 connection.connect((err) => {

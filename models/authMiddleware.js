@@ -16,4 +16,5 @@ const isAuthenticated = (req, res, next) => {
     }
 };
 
+// export isAuthenticated so that im able to import in routes folder
 module.exports = { isAuthenticated };

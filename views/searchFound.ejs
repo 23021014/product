@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,20 +9,18 @@
     <title>Recipe App</title>
     <link rel="stylesheet" href="/stylesheet/index.css">
 </head>
-<body>
 
+<body>
     <%- include ('partials/navbar.ejs') %>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
                 <!-- Sidebar -->
                 <div class="sidebar">
-                    <h4>Filters</h4>
-                    <hr>
-
+                    <h2>Filters</h2>
                     <!-- Serving Size Dropdown -->
                     <div class="form-group">
-                        <label for="servingSize">Serving Size</label>
+                        <h3>Serving Size</h3>
                         <select class="form-control" id="servingSize">
                             <option value="">Select serving size</option>
                             <option value="1-2">1-2 servings</option>
@@ -30,9 +29,8 @@
                             <option value="7+">7+ servings</option>
                         </select>
                     </div>
-
                     <!-- Cuisine Options -->
-                    <h5>Cuisine</h5>
+                    <h3>Cuisine</h3>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="italian" id="cuisineItalian">
                         <label class="form-check-label" for="cuisineItalian">
@@ -50,33 +48,20 @@
                         <label class="form-check-label" for="cuisineMexican">
                             Mexican
                         </label>
-                    </div>
-                    <!-- Add more cuisine options as needed -->
-
+                    </div><br>
                     <!-- Difficulty Level -->
-                    <h5>Difficulty Level</h5>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="easy" id="difficultyEasy">
-                        <label class="form-check-label" for="difficultyEasy">
-                            Easy
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="medium" id="difficultyMedium">
-                        <label class="form-check-label" for="difficultyMedium">
-                            Medium
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="hard" id="difficultyHard">
-                        <label class="form-check-label" for="difficultyHard">
-                            Hard
-                        </label>
-                    </div>
+                    <h3>Difficulty Level</h3>
+                    <div class="form-group mt-3">
+                        <select class="form-control" id="difficulty">
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div><br>
 
                     <!-- Total Estimated Time Dropdown -->
                     <div class="form-group">
-                        <label for="estimatedTime">Total Estimated Time</label>
+                        <h3>Total Estimated Time</h3>
                         <select class="form-control" id="estimatedTime">
                             <option value="">Select estimated time</option>
                             <option value="under30">Under 30 minutes</option>
@@ -89,32 +74,30 @@
             </div>
             
             <div class="col-md-9 main-content">
-                <!-- Main content area -->
                 <div class="container mt-3">
-                    <h2>Recipe Book</h2>
+                    <h1>Recipe Book</h1>
+                    <!--layout for the recipe's-->
                     <div class="row row-cols-1 row-cols-md-3 g-4">
                         <% for (let i = 0; i < products.length; i++) { %>
                             <div class="col">
                                 <div class="product-card">
+                                    <!--recipe image-->
                                     <img src="data:image/jpeg;base64,<%= products[i].recipeImage.toString('base64') %>" class="product-image" alt="<%= products[i].recipeName %> Image">
-                                    <!-- <h5><a href="/products/<%= products[i].recipeID %>"><%= products[i].recipeName %></a></h5> -->
-                                    <p>Recipe: <%= products[i].recipeName %></p>
+                                    <h3><%= products[i].recipeName %></h3>
                                     <p>
-                                        <% if (products[i].totalTimeEstimated < 50) { %>
-                                            <span style="color: red;">Total Estimated Time: <%= products[i].totalTimeEstimated %></span>
-                                        <% } else if (products[i].qty >= 100) { %>
-                                            <span style="color: green;">Total Estimated Time:<%= products[i].totalTimeEstimated %></span>
-                                        <% } else if (50 <= products[i].qty && products[i].qty < 100) { %>
-                                            <span style="color: orange;">Total Estimated Time: <%= products[i].totalTimeEstimated %></span>
+                                        <% if (products[i].totalTimeEstimated < 15) { %>
+                                            <span style="color: green;">Total Estimated Time: <%= products[i].totalTimeEstimated %> mins</span>
+                                        <% } else if (products[i].totalTimeEstimated >= 15 && products[i].totalTimeEstimated <= 30) { %>
+                                            <span style="color: green;">Total Estimated Time: <%= products[i].totalTimeEstimated %> mins</span>
+                                        <% } else if (products[i].totalTimeEstimated > 30 && products[i].totalTimeEstimated <= 60) { %>
+                                            <span style="color: orange;">Total Estimated Time: <%= products[i].totalTimeEstimated %> mins</span>
                                         <% } else { %>
-                                            <span>Total Estimated Time: <%= products[i].totalTimeEstimated %></span>
+                                            <span style="color: orangered;">Total Estimated Time: <%= products[i].totalTimeEstimated %> mins</span>
                                         <% } %>
-                                    </p>
+                                    </p>  
                                     <p>Serving size: <%= products[i].servingSize %></p>
                                     <div class="d-flex justify-content-between">
-                                        
                                         <a href="/products/<%= products[i].recipeID %>" class="btn btn-secondary">Preview</a>
-                                        
                                     </div>
                                 </div>
                             </div>
@@ -124,5 +107,6 @@
             </div>
         </div>
     </div>
+
 </body>
 </html>

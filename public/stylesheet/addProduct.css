@@ -1,3 +1,10 @@
 .space{
     margin:70px;
 }
+
+.box {
+    background-color: rgba(255, 192, 203, 0.2);
+    border-radius: 5px;
+    padding: 20px;
+}
+

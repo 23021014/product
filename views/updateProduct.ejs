@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,31 +9,32 @@
     <title>Recipe App</title>
     <link rel="stylesheet" href="/stylesheet/updateProduct.css">
 </head>
+
 <body>
     <%- include ('partials/navbar.ejs') %>
     <div class="space"></div>
     <div class="container mt-3">
         <h2>Update Product</h2>
-
-
-
         <!-- Form to update product info -->
         <form action="/products/<%= updateRecipe.recipeID %>/update" method="POST" enctype="multipart/form-data">
+            <!--Upload Image-->
             <div class="mb-3">
                 <label for="image">Upload image:</label>
-                <!-- <input type="text" class="form-control" id="image" placeholder="Enter image URL" name="imageUrl"> -->
                 <input type="file" class="form-control-file" id="image" name="image">
                 <img src="data:image/jpeg;base64,<%= updateRecipe.recipeImage.toString('base64') %>" alt="Current Image" style="max-width: 100px; max-height: 100px;">
             </div>
+            <!--Recipe Name-->
             <div class="mb-3">
                 <label for="name">Product Name:</label>
                 <input type="text" class="form-control" id="name" placeholder="Enter product name" name="name" value="<%= updateRecipe.recipeName %>">
 
             </div>
+            <!--Total Time Est-->
             <div class="mb-3">
                 <label for="totalTime">Total Time Estimated (minutes):</label>
                 <input type="number" class="form-control" id="totalTime" placeholder="Enter total time" name="totalTime" value="<%= updateRecipe.totalTimeEstimated %>">
             </div>
+            <!--Serving Size-->
             <div class="mb-3">
                 <label for="servingSize">Serving Size:</label>
                 <select class="form-select" id="servingSize" name="servingSize">
@@ -44,6 +46,7 @@
                     <option value="5" <%= updateRecipe.servingSize == 5 ? 'selected' : '' %>>5 Servings</option>
                 </select>
             </div>
+            <!--Ingredients-->
             <div class="mb-3">
                 <label for="ingredients">Ingredients:</label>
                 <ul class="list-group" id="ingredients">
@@ -52,10 +55,10 @@
                         <input type="text" class="form-control" placeholder="Enter ingredient" name="ingredients[]" value="<%= ingredient %>">
                     </li>
                     <% }); %>
-                    <!-- You can add more list items dynamically with JavaScript -->
                 </ul>
                 <button type="button" class="btn btn-secondary mt-2" onclick="addIngredient()">Add Ingredient</button>
             </div>
+            <!--Prep Steps-->
             <div class="mb-3">
                 <label for="preparationSteps">Preparation Steps:</label>
                 <ul class="list-group" id="preparationSteps">
@@ -65,7 +68,6 @@
                         <input type="text" class="form-control" placeholder="Enter preparation step" name="preparationSteps[]" value="<%= step %>">
                     </li>
                     <% }); %>
-                    <!-- You can add more list items dynamically with JavaScript -->
                 </ul>
                 <button type="button" class="btn btn-secondary mt-2" onclick="addPreparationStep()">Add Preparation Step</button>
             </div>
@@ -93,5 +95,6 @@
             preparationStepsList.appendChild(li);
         }
     </script>
+
 </body>
 </html>

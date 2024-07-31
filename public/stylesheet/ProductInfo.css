@@ -3,12 +3,11 @@
     margin:70px;
 }
 
-
 /* Image container styles */
 .image-container {
     text-align: center;
-    max-width: 600px; /* Adjust max-width as per your design */
-    margin: auto; /* Center the image */
+    max-width: 600px; 
+    margin: auto; 
 }
 
 /* Image styles */

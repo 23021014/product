@@ -11,87 +11,68 @@
 </head>
 
 <body>
-
     <%- include ('partials/navbar.ejs') %>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-3">
-                    <!-- Sidebar -->
-                    <div class="sidebar">
-                        <h4>Filters</h4>
-                        <hr>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Sidebar Filter -->
+                <div class="sidebar">
+                    <h2>Filters</h2>
+                    <!-- Serving Size Dropdown -->
+                    <div class="form-group">
+                        <h3>Serving Size</h3>
+                        <select class="form-control" id="servingSize">
+                            <option value="">Select serving size</option>
+                            <option value="1-2">1-2 servings</option>
+                            <option value="3-4">3-4 servings</option>
+                            <option value="5-6">5-6 servings</option>
+                            <option value="7+">7+ servings</option>
+                        </select>
+                    </div>
+                    <!-- Cuisine Options -->
+                    <h3>Cuisine</h3>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="italian" id="cuisineItalian">
+                        <label class="form-check-label" for="cuisineItalian">
+                            Italian
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="chinese" id="cuisineChinese">
+                        <label class="form-check-label" for="cuisineChinese">
+                            Chinese
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="mexican" id="cuisineMexican">
+                        <label class="form-check-label" for="cuisineMexican">
+                            Mexican
+                        </label>
+                    </div><br>
+                    <!-- Difficulty Level -->
+                    <h3>Difficulty Level</h3>
+                    <div class="form-group mt-3">
+                        <select class="form-control" id="difficulty">
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div><br>
 
-                        <!-- Serving Size Dropdown -->
-                        <div class="form-group">
-                            <label for="servingSize">Serving Size</label>
-                            <select class="form-control" id="servingSize">
-                                <option value="">Select serving size</option>
-                                <option value="1-2">1-2 servings</option>
-                                <option value="3-4">3-4 servings</option>
-                                <option value="5-6">5-6 servings</option>
-                                <option value="7+">7+ servings</option>
-                            </select>
-                        </div>
-
-                        <!-- Cuisine Options -->
-                        <h5>Cuisine</h5>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="italian" id="cuisineItalian">
-                            <label class="form-check-label" for="cuisineItalian">
-                                Italian
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="chinese" id="cuisineChinese">
-                            <label class="form-check-label" for="cuisineChinese">
-                                Chinese
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="mexican" id="cuisineMexican">
-                            <label class="form-check-label" for="cuisineMexican">
-                                Mexican
-                            </label>
-                        </div>
-                        <!-- Add more cuisine options as needed -->
-
-                        <!-- Difficulty Level -->
-                        <h5>Difficulty Level</h5>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="easy" id="difficultyEasy">
-                            <label class="form-check-label" for="difficultyEasy">
-                                Easy
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="medium" id="difficultyMedium">
-                            <label class="form-check-label" for="difficultyMedium">
-                                Medium
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="hard" id="difficultyHard">
-                            <label class="form-check-label" for="difficultyHard">
-                                Hard
-                            </label>
-                        </div>
-
-                        <!-- Total Estimated Time Dropdown -->
-                        <div class="form-group">
-                            <label for="estimatedTime">Total Estimated Time</label>
-                            <select class="form-control" id="estimatedTime">
-                                <option value="">Select estimated time</option>
-                                <option value="under30">Under 30 minutes</option>
-                                <option value="30-60">30-60 minutes</option>
-                                <option value="1-2hours">1-2 hours</option>
-                                <option value="2+hours">2+ hours</option>
-                            </select>
-                        </div>
+                    <!-- Total Estimated Time Dropdown -->
+                    <div class="form-group">
+                        <h3>Total Estimated Time</h3>
+                        <select class="form-control" id="estimatedTime">
+                            <option value="">Select estimated time</option>
+                            <option value="under30">Under 30 minutes</option>
+                            <option value="30-60">30-60 minutes</option>
+                            <option value="1-2hours">1-2 hours</option>
+                            <option value="2+hours">2+ hours</option>
+                        </select>
                     </div>
                 </div>
-
+            </div>
                 <div class="col-md-9 main-content">
-                    <!-- Main content area -->
                     <div class="container mt-3">
                         <h2>Recipe Book</h2>
                         <div class="space"></div>
@@ -103,6 +84,6 @@
                 </div>
             </div>
         </div>
-</body>
 
+</body>
 </html>
